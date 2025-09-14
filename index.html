@@ -3,684 +3,558 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sh1vam-03 | Web & Security Developer</title>
-    <meta name="description" content="Professional Web Developer and Security Specialist. Expert in penetration testing, secure web development, and cybersecurity solutions.">
-    <meta name="keywords" content="web developer, security specialist, penetration testing, cybersecurity, ethical hacking">
+    <title>sh1vam-03 | Security Specialist & Developer</title>
+    <meta name="description" content="Senior Security Specialist, Developer, and Technology Leader. Expert in cybersecurity, penetration testing, and secure application development.">
+    <meta name="keywords" content="security specialist, cyber security expert, penetration testing, ethical hacking, web development, technology leader">
+    <meta name="theme-color" content="#00FF00">
+    
+    <!-- Social Meta Tags -->
+    <meta property="og:title" content="sh1vam-03 | Security Specialist & Developer">
+    <meta property="og:description" content="Senior Security Specialist, Developer, and Technology Leader">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2300FF41' d='M4 4h16v2H4zm0 4h16v2H4zm0 4h16v2H4zm0 4h16v2H4z'/%3E%3C/svg%3E">
+    
+    <!-- Fonts and Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&family=Source+Code+Pro:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-    <!-- Loading Animation -->
-    <div class="loader">
-        <div class="loader-spinner"></div>
-        <div class="loader-text">Loading...</div>
-    </div>
+    <!-- Matrix Background -->
+    <canvas class="matrix-bg" id="matrixCanvas"></canvas>
 
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">Shivam Kumar<span>_</span></div>
-                <ul class="nav-links">
-                    <li><a href="#home" class="active">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#certificates">Certificates</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <button class="hamburger" aria-label="Toggle navigation menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" aria-label="Toggle dark/light mode">
-        <i class="fas fa-moon"></i>
-    </button>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-img">
-                    <i class="fas fa-user-secret"></i>
+    <!-- View Selection Screen -->
+    <div class="view-selector" id="viewSelector">
+        <div class="selector-content">
+            <h1 class="selector-title">sh1vam.portfolio</h1>
+            <p class="selector-subtitle">Choose your preferred interface experience</p>
+            <div class="view-options">
+                <div class="view-option" id="terminalOption">
+                    <div class="option-icon">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3 class="option-title">Terminal Mode</h3>
+                    <p class="option-description">
+                        Experience an authentic terminal interface with command-line navigation, 
+                        ASCII art graphics, and real-time command processing.
+                    </p>
                 </div>
-                <h1 class="hero-name logo">Shivam Kumar <span>_</span></h1>
-                <div class="hero-title-container">
-                    <span class="hero-title-prefix">I'm a </span>
-                    <span class="hero-title-typing" id="typing-text"></span>
-                    <span class="hero-title-cursor">|</span>
-                </div>
-                <p class="hero-description">Building secure and elegant digital solutions with a focus on cybersecurity and ethical hacking</p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i> View My Work</a>
-                    <a href="#contact" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Hire Me</a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Projects Completed</span>
+                <div class="view-option" id="guiOption">
+                    <div class="option-icon">
+                        <i class="fas fa-desktop"></i>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">100+</span>
-                        <span class="stat-label">Security Audits</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">5+</span>
-                        <span class="stat-label">Years Experience</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="hero-scroll-indicator">
-            <div class="scroll-arrow"></div>
-            <span>Scroll to explore</span>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Me</h2>
-                <p>Get to know more about my skills and expertise</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Developer & Security Specialist</h3>
-                    <p>I am a Full Stack Developer and Certified Ethical Hacker with specialized expertise in Penetration Testing and application security. My unique combination of development skills and security knowledge allows me to build robust web applications with security integrated at every layer of the technology stack.</p>
-                    <p>With experience in both creating software and ethically breaking it, I implement security best practices during development while proactively identifying vulnerabilities through comprehensive penetration testing. This dual perspective enables me to deliver solutions that are not just functional, but fundamentally secure by design.</p>
-                    <div class="about-highlights">
-                        <div class="highlight-item">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Security-First Approach</span>
-                        </div>
-                        <div class="highlight-item">
-                            <i class="fas fa-code"></i>
-                            <span>Clean & Maintainable Code</span>
-                        </div>
-                        <div class="highlight-item">
-                            <i class="fas fa-users"></i>
-                            <span>Team Collaboration</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-details">
-                    <div class="detail-item">
-                        <h4><i class="fas fa-map-marker-alt"></i> Location</h4>
-                        <p>India</p>
-                    </div>
-                    <div class="detail-item">
-                        <h4><i class="fas fa-users"></i> Soft Skills</h4>
-                        <p>Problem Solving, Team Collaboration, Communication, Critical Thinking</p>
-                    </div>
-                    <div class="detail-item">
-                        <h4><i class="fas fa-heart"></i> Interests</h4>
-                        <p>Web Development, Cybersecurity, Open Source, Ethical Hacking</p>
-                    </div>
-                    <div class="detail-item">
-                        <h4><i class="fas fa-graduation-cap"></i> Education</h4>
-                        <p>Computer Science & Cybersecurity</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section - UPDATED -->
-    <section id="skills" class="skills section-bg">
-        <div class="container">
-            <div class="section-title">
-                <h2>Technical Skills</h2>
-                <p>Technologies and tools I work with</p>
-            </div>
-            <div class="skills-grid">
-                <!-- First Row -->
-                <div class="skill-category">
-                    <h3><i class="fas fa-shield-alt"></i> Cybersecurity</h3>
-                    <div class="skill-items">
-                        <div class="skill-item"><i class="fas fa-shield-alt"></i> Pen Testing</div>
-                        <div class="skill-item"><i class="fas fa-search"></i> Vulnerability Assessment</div>
-                        <div class="skill-item"><i class="fas fa-bug"></i> OWASP Top 10</div>
-                        <div class="skill-item"><i class="fas fa-network-wired"></i> Network Security</div>
-                        <div class="skill-item"><i class="fas fa-lock"></i> Cryptography</div>
-                        <div class="skill-item"><i class="fas fa-file-alt"></i> Security Auditing</div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-tools"></i> Tools & Platforms</h3>
-                    <div class="skill-items">
-                        <div class="skill-item"><i class="fab fa-git-alt"></i> Git</div>
-                        <div class="skill-item"><i class="fab fa-docker"></i> Docker</div>
-                        <div class="skill-item"><i class="fab fa-aws"></i> AWS</div>
-                        <div class="skill-item"><i class="fas fa-desktop"></i> Burp Suite</div>
-                        <div class="skill-item"><i class="fas fa-chart-line"></i> Wireshark</div>
-                        <div class="skill-item"><i class="fas fa-cube"></i> Metasploit</div>
-                        <div class="skill-item"><i class="fas fa-search"></i> Nmap</div>
-                    </div>
-                </div>
-                <!-- Second Row -->
-                <div class="skill-category">
-                    <h3><i class="fas fa-palette"></i> Frontend Development</h3>
-                    <div class="skill-items">
-                        <div class="skill-item"><i class="fab fa-react"></i> React</div>
-                        <div class="skill-item"><i class="fab fa-vuejs"></i> Vue.js</div>
-                        <div class="skill-item"><i class="fab fa-js"></i> JavaScript</div>
-                        <div class="skill-item"><i class="fab fa-html5"></i> HTML5</div>
-                        <div class="skill-item"><i class="fab fa-css3-alt"></i> CSS3</div>
-                        <div class="skill-item"><i class="fab fa-sass"></i> Sass</div>
-                        <div class="skill-item">Tailwind CSS</div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3><i class="fas fa-server"></i> Backend Development</h3>
-                    <div class="skill-items">
-                        <div class="skill-item"><i class="fab fa-node-js"></i> Node.js</div>
-                        <div class="skill-item">Express.js</div>
-                        <div class="skill-item"><i class="fab fa-python"></i> Python</div>
-                        <div class="skill-item">Django</div>
-                        <div class="skill-item">PostgreSQL</div>
-                        <div class="skill-item">MongoDB</div>
-                        <div class="skill-item">REST APIs</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Skills Progress Section -->
-            <div class="skill-levels">
-                <div class="section-title">
-                    <h2>Proficiency Levels</h2>
-                    <p>My expertise in key areas</p>
-                </div>
-                
-                <div class="skill-progress">
-                    <div class="skill-info">
-                        <span class="skill-name">Web Application Security</span>
-                        <span class="skill-percentage">95%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" data-width="95"></div>
-                    </div>
-                </div>
-                
-                <div class="skill-progress">
-                    <div class="skill-info">
-                        <span class="skill-name">Frontend Development</span>
-                        <span class="skill-percentage">90%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" data-width="90"></div>
-                    </div>
-                </div>
-                
-                <div class="skill-progress">
-                    <div class="skill-info">
-                        <span class="skill-name">Backend Development</span>
-                        <span class="skill-percentage">88%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" data-width="88"></div>
-                    </div>
-                </div>
-                
-                <div class="skill-progress">
-                    <div class="skill-info">
-                        <span class="skill-name">Penetration Testing</span>
-                        <span class="skill-percentage">93%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" data-width="93"></div>
-                    </div>
-                </div>
-                
-                <div class="skill-progress">
-                    <div class="skill-info">
-                        <span class="skill-name">Cloud Security</span>
-                        <span class="skill-percentage">85%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" data-width="85"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-title">
-                <h2>My Projects</h2>
-                <p>Some of my recent work and projects</p>
-            </div>
-            <div class="projects-container">
-                <div class="project-card" data-project="1">
-                    <div class="project-img" style="background: linear-gradient(135deg, #6F3AFF 0%, #2A1454 100%);">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Secure Auth System</h3>
-                        <p>A multi-factor authentication system with advanced security features including biometric verification and behavioral analysis.</p>
-                        <div class="project-tech">
-                            <span>Node.js</span>
-                            <span>React</span>
-                            <span>JWT</span>
-                            <span>Biometrics</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                            <a href="#"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-project="2">
-                    <div class="project-img" style="background: linear-gradient(135deg, #FF6B6B 0%, #8C2F39 100%);">
-                        <i class="fas fa-bug"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Vulnerability Scanner</h3>
-                        <p>Automated web application vulnerability scanner that detects common security issues and provides detailed reports.</p>
-                        <div class="project-tech">
-                            <span>Python</span>
-                            <span>OWASP</span>
-                            <span>SQLi</span>
-                            <span>XSS</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                            <a href="#"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-project="3">
-                    <div class="project-img" style="background: linear-gradient(135deg, #4ECDC4 0%, #2A5C54 100%);">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3>Encrypted Messaging App</h3>
-                        <p>End-to-end encrypted messaging platform with forward secrecy and secure file sharing capabilities.</p>
-                        <div class="project-tech">
-                            <span>React Native</span>
-                            <span>WebRTC</span>
-                            <span>AES-256</span>
-                            <span>WebSockets</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                            <a href="#"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Project Modals -->
-    <div class="modal" id="project-modal-1">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Secure Auth System</h2>
-                <div class="modal-close">
-                    <i class="fas fa-times"></i>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="modal-img" style="background: linear-gradient(135deg, #6F3AFF 0%, #2A1454 100%);">
-                    <i class="fas fa-shield-alt" style="font-size: 4rem; color: white;"></i>
-                </div>
-                <p>A comprehensive multi-factor authentication system designed with security as the primary focus. This system incorporates biometric verification, behavioral analysis, and adaptive authentication to provide robust protection against unauthorized access.</p>
-                
-                <div class="modal-details">
-                    <div class="modal-detail-item">
-                        <h4>Technologies Used</h4>
-                        <p>Node.js, React, MongoDB, JWT, WebAuthn, Biometric APIs</p>
-                    </div>
-                    <div class="modal-detail-item">
-                        <h4>Key Features</h4>
-                        <p>Multi-factor authentication, Behavioral analysis, Biometric verification, Adaptive security policies</p>
-                    </div>
-                    <div class="modal-detail-item">
-                        <h4>Security Measures</h4>
-                        <p>Rate limiting, Encryption at rest and in transit, Secure cookie handling, Regular security audits</p>
-                    </div>
-                </div>
-                
-                <div class="project-links">
-                    <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                    <a href="#"><i class="fab fa-github"></i> GitHub Repository</a>
+                    <h3 class="option-title">GUI Mode</h3>
+                    <p class="option-description">
+                        Browse through a modern graphical interface with smooth animations, 
+                        interactive elements, and traditional web navigation.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal" id="project-modal-2">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Vulnerability Scanner</h2>
-                <div class="modal-close">
-                    <i class="fas fa-times"></i>
-                </div>
+    <!-- Terminal Interface -->
+    <div class="terminal-interface terminal-mode" id="terminalInterface">
+        <div class="terminal-top-bar">
+            <div class="terminal-window-controls">
+                <div class="terminal-window-button" style="background-color: #FF5F56;" id="closeTerminal"></div>
+                <div class="terminal-window-button" style="background-color: #FFBD2E;" id="minimizeTerminal"></div>
+                <div class="terminal-window-button" style="background-color: #27C93F;" id="maximizeTerminal"></div>
             </div>
-            <div class="modal-body">
-                <div class="modal-img" style="background: linear-gradient(135deg, #FF6B6B 0%, #8C2F39 100%);">
-                    <i class="fas fa-bug" style="font-size: 4rem; color: white;"></i>
-                </div>
-                <p>An automated web application vulnerability scanner that systematically examines web applications for security weaknesses. The tool identifies common vulnerabilities including those listed in the OWASP Top 10 and generates comprehensive reports with remediation guidance.</p>
-                
-                <div class="modal-details">
-                    <div class="modal-detail-item">
-                        <h4>Technologies Used</h4>
-                        <p>Python, OWASP ZAP API, BeautifulSoup, Requests, PostgreSQL</p>
-                    </div>
-                    <div class="modal-detail-item">
-                        <h4>Vulnerabilities Detected</h4>
-                        <p>SQL Injection, XSS, CSRF, Security Misconfigurations, Broken Authentication</p>
-                    </div>
-                    <div class="modal-detail-item">
-                        <h4>Features</h4>
-                        <p>Automated scanning, Detailed reporting, CI/CD integration, Custom rule engine</p>
-                    </div>
-                </div>
-                
-                <div class="project-links">
-                    <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                    <a href="#"><i class="fab fa-github"></i> GitHub Repository</a>
-                </div>
+            <div class="terminal-window-title">sh1vam@portfolio:~</div>
+            <div style="width: 60px;"></div>
+        </div>
+        <div class="terminal-content" id="terminalContent">
+            <div class="terminal-output">
+                <div class="ascii-art">           __   ___                    
+     _____/ /_ /  /   ______ _____ ___ 
+    / ___/ __ \/ / | / / __ `/ __ `__ \
+   (__  ) / / / /| |/ / /_/ / / / / / /
+  /____/_/ /_/_/ |___/\__,_/_/ /_/ /_/ 
+
+  ████████████████████████████████████
+  ██    TERMINAL-BASED PORTFOLIO    ██
+  ██        sh1vam@portfolio        ██
+  ████████████████████████████████████</div>
+                <div style="color: var(--success);">[INFO] Terminal initialized successfully</div>
+                <div>System: Kali Linux 2023.4 (Terminal Portfolio v2.1)</div>
+                <div>Type 'pf -help' for available commands</div>
+                <div>Use 'clear' to clear screen, 'pf -gui' to switch to GUI mode</div>
+            </div>
+            <div class="terminal-input-container" id="currentInput">
+                <span class="terminal-prompt">sh1vam@portfolio:~$</span>
+                <input type="text" class="terminal-input" id="terminalInput" autocomplete="off" spellcheck="false">
+                <span class="terminal-cursor"></span>
             </div>
         </div>
     </div>
 
-    <div class="modal" id="project-modal-3">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Encrypted Messaging App</h2>
-                <div class="modal-close">
-                    <i class="fas fa-times"></i>
-                </div>
-            </div>
-            <div class="modal-body">
-                <div class="modal-img" style="background: linear-gradient(135deg, #4ECDC4 0%, #2A5C54 100%);">
-                    <i class="fas fa-lock" style="font-size: 4rem; color: white;"></i>
-                </div>
-                <p>A secure messaging application featuring end-to-end encryption, forward secrecy, and secure file sharing. The platform ensures that only the intended recipients can read messages, with no possibility of interception by third parties, including the service provider.</p>
-                
-                <div class="modal-details">
-                    <div class="modal-detail-item">
-                        <h4>Technologies Used</h4>
-                        <p>React Native, Node.js, WebRTC, Signal Protocol, MongoDB</p>
+    <!-- GUI Interface -->
+    <div class="gui-interface gui-mode" id="guiInterface">
+        <!-- Loader -->
+        <div class="loader" id="guiLoader">
+            <div class="loader-content">
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-button" style="background-color: #FF5F56;"></div>
+                        <div class="terminal-button" style="background-color: #FFBD2E;"></div>
+                        <div class="terminal-button" style="background-color: #27C93F;"></div>
+                        <div class="terminal-title">sh1vam@portfolio:~</div>
                     </div>
-                    <div class="modal-detail-item">
-                        <h4>Security Features</h4>
-                        <p>End-to-end encryption, Forward secrecy, Perfect forward secrecy, Secure file transfer</p>
-                    </div>
-                    <div class="modal-detail-item">
-                        <h4>Additional Features</h4>
-                        <p>Voice and video calls, Group messaging, Message expiration, Screen security</p>
-                    </div>
-                </div>
-                
-                <div class="project-links">
-                    <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                    <a href="#"><i class="fab fa-github"></i> GitHub Repository</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Experience Section -->
-    <section id="experience" class="experience section-bg">
-        <div class="container">
-            <div class="section-title">
-                <h2>Work Experience</h2>
-                <p>My professional journey so far</p>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Freelance Web Developer</h3>
-                        <h4>2022 - Present</h4>
-                        <ul>
-                            <li>Developed secure web applications for various clients with focus on security best practices</li>
-                            <li>Implemented security audits and penetration testing for client projects</li>
-                            <li>Reduced security vulnerabilities by 75% through code review and security testing</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Cybersecurity Intern</h3>
-                        <h4>Summer 2023</h4>
-                        <ul>
-                            <li>Conducted vulnerability assessments and penetration tests on company systems</li>
-                            <li>Assisted in developing security protocols and incident response plans</li>
-                            <li>Discovered and reported critical vulnerabilities in web applications</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Open Source Contributor</h3>
-                        <h4>2021 - Present</h4>
-                        <ul>
-                            <li>Contributed to security-focused open source projects</li>
-                            <li>Developed security patches for popular web frameworks</li>
-                            <li>Created educational content about web security best practices</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certificates Section -->
-    <section id="certificates" class="certificates">
-        <div class="container">
-            <div class="section-title">
-                <h2>Certificates & Achievements</h2>
-                <p>My certifications and recognitions</p>
-            </div>
-            <div class="certs-container">
-                <div class="cert-card">
-                    <div class="cert-header">
-                        <h3>Google Cybersecurity Certificate</h3>
-                    </div>
-                    <div class="cert-body">
-                        <p>Completed comprehensive cybersecurity training covering network security, system administration, and defensive cybersecurity skills.</p>
-                    </div>
-                    <div class="cert-footer">
-                        <span>2023</span>
-                        <a href="#"><i class="fas fa-external-link-alt"></i> View Certificate</a>
-                    </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-header">
-                        <h3>Certified Ethical Hacker (CEH)</h3>
-                    </div>
-                    <div class="cert-body">
-                        <p>Certified in ethical hacking methodologies, penetration testing, and vulnerability assessment techniques.</p>
-                    </div>
-                    <div class="cert-footer">
-                        <span>2023</span>
-                        <a href="#"><i class="fas fa-external-link-alt"></i> View Certificate</a>
-                    </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-header">
-                        <h3>Bug Bounty Recognition</h3>
-                    </div>
-                    <div class="cert-body">
-                        <p>Acknowledged by multiple organizations for identifying and responsibly disclosing critical security vulnerabilities.</p>
-                    </div>
-                    <div class="cert-footer">
-                        <span>2022-2023</span>
-                        <a href="#"><i class="fas fa-external-link-alt"></i> View Achievements</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section-bg">
-        <div class="container">
-            <div class="section-title">
-                <h2>Testimonials</h2>
-                <p>What clients and colleagues say about my work</p>
-            </div>
-            <div class="testimonials-container">
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        Shivam delivered an exceptionally secure web application that exceeded our expectations. His dual expertise in development and security is truly remarkable.
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">JD</div>
-                        <div class="author-details">
-                            <h4>John Doe</h4>
-                            <p>CEO, TechSecure Inc.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        The penetration testing conducted by Shivam uncovered critical vulnerabilities that our team had missed. His detailed report and remediation guidance were invaluable.
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">SM</div>
-                        <div class="author-details">
-                            <h4>Sarah Miller</h4>
-                            <p>CTO, DataSafe Solutions</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-text">
-                        Working with Shivam was a great experience. He not only developed a beautiful web application but also ensured it was secure from the ground up.
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-img">RJ</div>
-                        <div class="author-details">
-                            <h4>Robert Johnson</h4>
-                            <p>Product Manager, InnovateTech</p>
+                    <div class="terminal-body">
+                        <p class="status-line">> Initializing system...</p>
+                        <p class="status-line">> Loading portfolio components...</p>
+                        <p class="status-line">> Establishing secure connection...</p>
+                        <p class="status-line">> Welcome to the terminal portfolio of <span style="color: var(--primary);">sh1vam</span></p>
+                        <div class="progress-bar">
+                            <div class="progress" id="guiProgress"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Get In Touch</h2>
-                <p>Feel free to reach out to me</p>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Email</h3>
-                            <p>contact@shivam.dev</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Location</h3>
-                            <p>India</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Phone</h3>
-                            <p>+91 98765 43210</p>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h2>Shivam.</h2>
-                    <p>Web Developer & Security Specialist focused on creating secure and efficient digital solutions.</p>
-                </div>
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
+        <!-- Navigation -->
+        <header>
+            <div class="container">
+                <nav>
+                    <a href="#" class="logo">
+                        <i class="fas fa-terminal"></i>
+                        <span>sh1vam</span>
+                    </a>
+                    <ul class="nav-links">
+                        <li><a href="#about" class="active">About</a></li>
                         <li><a href="#skills">Skills</a></li>
                         <li><a href="#projects">Projects</a></li>
                         <li><a href="#contact">Contact</a></li>
+                        <li><a href="#" id="switchToTerminal" style="color: var(--warning);">Terminal</a></li>
                     </ul>
-                </div>
-                <div class="footer-links">
-                    <h3>Services</h3>
-                    <ul>
-                        <li><a href="#">Web Development</a></li>
-                        <li><a href="#">Penetration Testing</a></li>
-                        <li><a href="#">Security Auditing</a></li>
-                        <li><a href="#">Consulting</a></li>
-                    </ul>
+                    <button class="hamburger">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </nav>
+            </div>
+        </header>
+        
+        <!-- Enhanced Hero Section -->
+        <section class="hero">
+            <div class="grid-overlay"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-profile">
+                        <div class="hero-img-wrapper">
+                            <div class="profile-img">
+                                <i class="fas fa-user-secret"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h1 class="hero-name">sh1vam</h1>
+                    <div class="hero-title-container">
+                        <h2 class="hero-title" id="typed-text"></h2>
+                        <span class="typed-cursor">|</span>
+                    </div>
+                    <p class="hero-description">
+                        I secure digital infrastructures and develop robust applications with a focus on cybersecurity and innovative technology solutions.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">
+                            <i class="fas fa-code"></i> View Projects
+                        </a>
+                        <a href="#contact" class="btn btn-outline">
+                            <i class="fas fa-envelope"></i> Contact Me
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-project-diagram stat-icon"></i>
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-users stat-icon"></i>
+                            <span class="stat-number">25+</span>
+                            <span class="stat-label">Clients</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-award stat-icon"></i>
+                            <span class="stat-number">12+</span>
+                            <span class="stat-label">Certifications</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2023 Shivam. All Rights Reserved.</p>
+            <div class="scroll-indicator">
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+                <div class="arrows">
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
-        </div>
-    </footer>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2>About Me</h2>
+                    <p>Get to know me better</p>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Senior Security Specialist & Developer</h3>
+                        <p>
+                            I am a passionate security specialist and developer with over 8 years of experience in cybersecurity, 
+                            penetration testing, and secure application development. My mission is to build secure digital 
+                            environments and protect organizations from evolving cyber threats.
+                        </p>
+                        <p>
+                            I specialize in identifying vulnerabilities, implementing security measures, and developing 
+                            robust applications with security-first principles. My expertise spans across various domains 
+                            including network security, web application security, and cloud infrastructure.
+                        </p>
+                        <div class="about-stats">
+                            <div class="about-stat">
+                                <i class="fas fa-shield-alt"></i>
+                                <h4>Security</h4>
+                                <p>Cybersecurity Expert</p>
+                            </div>
+                            <div class="about-stat">
+                                <i class="fas fa-code"></i>
+                                <h4>Development</h4>
+                                <p>Full-Stack Developer</p>
+                            </div>
+                            <div class="about-stat">
+                                <i class="fas fa-network-wired"></i>
+                                <h4>Networking</h4>
+                                <p>Infrastructure Specialist</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <div class="about-image-wrapper">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%230D0208'/%3E%3Cpath d='M150 70 L220 130 L180 190 L120 190 L80 130 Z' fill='%2300FF41'/%3E%3Ccircle cx='150' cy='130' r='30' fill='%230A0A0A'/%3E%3C/svg%3E" alt="sh1vam">
+                        </div>
+                        <div class="tech-stack">
+                            <i class="devicon-python-plain"></i>
+                            <i class="devicon-javascript-plain"></i>
+                            <i class="devicon-react-original"></i>
+                            <i class="devicon-nodejs-plain"></i>
+                            <i class="devicon-linux-plain"></i>
+                            <i class="fas fa-database"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Scroll to top button -->
-    <a href="#" class="scroll-top">
-        <i class="fas fa-arrow-up"></i>
-    </a>
+        <!-- Skills Section -->
+        <section id="skills">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Skills & Expertise</h2>
+                    <p>What I bring to the table</p>
+                </div>
+                <div class="skills-content">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-shield-alt"></i> Security</h3>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h4>Penetration Testing</h4>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h4>Vulnerability Assessment</h4>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h4>Network Security</h4>
+                                <span>92%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="92"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h4>Cryptography</h4>
+                                <span>88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="88"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-code"></i> Development</h3>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h4>Python</h4>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h4>JavaScript/Node.js</h4>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h4>React</h4>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h4>SQL/NoSQL Databases</h4>
+                                <span>88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="88"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-tools"></i> Tools & Technologies</h3>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h4>Kali Linux</h4>
+                                <span>93%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="93"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h4>Metasploit</h4>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h4>Wireshark</h4>
+                                <span>87%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="87"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h4>Docker & Kubernetes</h4>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="85"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Projects</h2>
+                    <p>Some of my recent work</p>
+                </div>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-img">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 200'%3E%3Crect width='350' height='200' fill='%230D0208'/%3E%3Cpath d='M175 50 L250 100 L220 150 L130 150 L100 100 Z' fill='%2300FF41'/%3E%3Ccircle cx='175' cy='100' r='20' fill='%230A0A0A'/%3E%3C/svg%3E" alt="Secure Network Architecture">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Secure Network Architecture</h3>
+                            <p class="project-description">
+                                Designed and implemented a secure network infrastructure with advanced firewall configurations, IDS/IPS systems, and secure remote access solutions.
+                            </p>
+                            <div class="project-tech">
+                                <span>Firewalls</span>
+                                <span>VPN</span>
+                                <span>IDS/IPS</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                                <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-img">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 200'%3E%3Crect width='350' height='200' fill='%230D0208'/%3E%3Crect x='75' y='50' width='200' height='100' rx='10' fill='%2300FF41'/%3E%3Ccircle cx='175' cy='100' r='30' fill='%230A0A0A'/%3E%3C/svg%3E" alt="Pen Testing Framework">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Pen Testing Framework</h3>
+                            <p class="project-description">
+                                Developed a comprehensive penetration testing framework with automated vulnerability scanning, reporting, and remediation guidance.
+                            </p>
+                            <div class="project-tech">
+                                <span>Python</span>
+                                <span>Security</span>
+                                <span>Automation</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                                <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-img">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 350 200'%3E%3Crect width='350' height='200' fill='%230D0208'/%3E%3Cpath d='M100 50 L250 50 L250 150 L100 150 Z' fill='%2300FF41'/%3E%3Crect x='125' y='75' width='100' height='50' fill='%230A0A0A'/%3E%3C/svg%3E" alt="Tabsye Project">
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Tabsye Browser Extension</h3>
+                            <p class="project-description">
+                                A powerful browser extension for tab management and productivity enhancement. Organize, save, and restore browsing sessions with ease.
+                            </p>
+                            <div class="project-tech">
+                                <span>JavaScript</span>
+                                <span>Chrome API</span>
+                                <span>React</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://tabsye.com" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                                <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Contact Me</h2>
+                    <p>Let's work together</p>
+                </div>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <a href="mailto:sh1vam@example.com">sh1vam@example.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Phone</h4>
+                                <a href="tel:+1234567890">+1 (234) 567-890</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Location</h4>
+                                <p>San Francisco, CA</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Availability</h4>
+                                <p>Currently available for freelance projects</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" class="form-control" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" class="form-control" placeholder="Subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" class="form-control" placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#about">About</a>
+                        <a href="#skills">Skills</a>
+                        <a href="#projects">Projects</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                    <p class="copyright">© 2023 sh1vam. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
 
-        <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="script.js"></script>
 </body>
-</html>
+</html> 
