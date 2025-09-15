@@ -1,201 +1,237 @@
-// Matrix background effect
-function initMatrix() {
-  const canvas = document.getElementById("matrixCanvas");
-  if (!canvas) return;
+        // Matrix background effect
+        function initMatrix() {
+          const canvas = document.getElementById("matrixCanvas");
+          if (!canvas) return;
 
-  const ctx = canvas.getContext("2d");
+          const ctx = canvas.getContext("2d");
 
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
+          function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+          }
+          resizeCanvas();
 
-  const characters =
-    "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;:,.<>?";
-  const fontSize = 14;
-  const columns = Math.floor(canvas.width / fontSize);
-  const drops = new Array(columns).fill(0);
+          const characters =
+            "01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+-=[]{}|;:,.<>?";
+          const fontSize = 14;
+          const columns = Math.floor(canvas.width / fontSize);
+          const drops = new Array(columns).fill(0);
 
-  function draw() {
-    ctx.fillStyle = "rgba(10, 10, 10, 0.05)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+          function draw() {
+            ctx.fillStyle = "rgba(10, 10, 10, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "#00FF41";
-    ctx.font = `${fontSize}px monospace`;
+            ctx.fillStyle = "#00FF41";
+            ctx.font = `${fontSize}px monospace`;
 
-    for (let i = 0; i < drops.length; i++) {
-      const text = characters.charAt(
-        Math.floor(Math.random() * characters.length)
-      );
-      const x = i * fontSize;
-      const y = drops[i] * fontSize;
+            for (let i = 0; i < drops.length; i++) {
+              const text = characters.charAt(
+                Math.floor(Math.random() * characters.length)
+              );
+              const x = i * fontSize;
+              const y = drops[i] * fontSize;
 
-      ctx.fillText(text, x, y);
+              ctx.fillText(text, x, y);
 
-      if (y > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
-    }
-  }
+              if (y > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+              }
+              drops[i]++;
+            }
+          }
 
-  setInterval(draw, 50);
-  window.addEventListener("resize", resizeCanvas);
-}
+          setInterval(draw, 50);
+          window.addEventListener("resize", resizeCanvas);
+        }
 
-// Terminal Class
-class TerminalPortfolio {
-  constructor() {
-    this.commandHistory = [];
-    this.historyIndex = -1;
-    this.currentInput = document.getElementById("terminalInput");
-    this.terminalContent = document.getElementById("terminalContent");
-    this.currentInputContainer = document.getElementById("currentInput");
-    this.isLoading = false;
+        // Common Loader function
+        function showCommonLoader() {
+          return new Promise((resolve) => {
+            const loader = document.getElementById("commonLoader");
+            const progress = document.getElementById("commonLoaderProgress");
 
-    this.commands = {
-      "pf -help": () => this.showHelp(),
-      "portfolio -help": () => this.showHelp(),
+            // Show loader
+            loader.classList.add("active");
+            progress.style.width = "0%";
 
-      "pf -about": () => this.showAbout(),
-      "portfolio -about": () => this.showAbout(),
+            // Simulate loading progress - shorter duration
+            const progressSteps = [
+              { width: "30%", delay: 200 },
+              { width: "60%", delay: 300 },
+              { width: "90%", delay: 600 },
+              { width: "100%", delay: 200 }
+            ];
 
-      "pf -skills": () => this.showSkills(),
-      "portfolio -skills": () => this.showSkills(),
+            let totalDelay = 0;
+            progressSteps.forEach((step, index) => {
+              totalDelay += step.delay;
+              setTimeout(() => {
+                progress.style.width = step.width;
+              }, totalDelay);
+            });
 
-      "pf -projects": () => this.showProjects(),
-      "portfolio -projects": () => this.showProjects(),
+            // Hide loader after completion
+            setTimeout(() => {
+              loader.classList.remove("active");
+              setTimeout(resolve, 0); // Shorter fade out
+            }, totalDelay + 600);
+          });
+        }
 
-      "pf -contact": () => this.showContact(),
-      "portfolio -contact": () => this.showContact(),
+        // Terminal Class
+        class TerminalPortfolio {
+          constructor() {
+            this.commandHistory = [];
+            this.historyIndex = -1;
+            this.currentInput = document.getElementById("terminalInput");
+            this.terminalContent = document.getElementById("terminalContent");
+            this.currentInputContainer = document.getElementById("currentInput");
+            this.isLoading = false;
 
-      "pf -gui": () => this.switchToGUI(),
-      "portfolio -gui": () => this.switchToGUI(),
+            this.commands = {
+              "pf -help": () => this.showHelp(),
+              "portfolio -help": () => this.showHelp(),
+              "pf -about": () => this.showAbout(),
+              "portfolio -about": () => this.showAbout(),
+              "pf -skills": () => this.showSkills(),
+              "portfolio -skills": () => this.showSkills(),
+              "pf -projects": () => this.showProjects(),
+              "portfolio -projects": () => this.showProjects(),
+              "pf -contact": () => this.showContact(),
+              "portfolio -contact": () => this.showContact(),
+              "pf -gui": () => this.switchToGUI(),
+              "portfolio -gui": () => this.switchToGUI(),
+              "ls": () => this.listDirectory(),
+              "cd": () => this.changeDirectory(),
+              "clear": () => this.clearTerminal(),
+              "exit": () => this.showViewSelector(),
+            };
 
-      "ls": () => this.listDirectory(),
-      "cd": () => this.changeDirectory(),
+            this.initEventListeners();
+            this.focusInput();
+          }
 
-      "clear": () => this.clearTerminal(),
+          initEventListeners() {
+            document.addEventListener("click", (e) => {
+              if (!e.target.closest(".terminal-window-controls")) {
+                this.focusInput();
+              }
+            });
 
-      "exit": () => this.showViewSelector(),
-    };
+            if (this.currentInput) {
+              this.currentInput.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  this.executeCommand();
+                } else if (e.key === "ArrowUp") {
+                  e.preventDefault();
+                  this.navigateHistory(-1);
+                } else if (e.key === "ArrowDown") {
+                  e.preventDefault();
+                  this.navigateHistory(1);
+                } else if (e.key === "Tab") {
+                  e.preventDefault();
+                  this.autoComplete();
+                }
+              });
+            }
 
-    this.initEventListeners();
-    this.focusInput();
-  }
+            // Terminal window controls
+            const closeBtn = document.getElementById("closeTerminal");
+            const minimizeBtn = document.getElementById("minimizeTerminal");
+            const maximizeBtn = document.getElementById("maximizeTerminal");
 
-  initEventListeners() {
-    document.addEventListener("click", (e) => {
-      if (!e.target.closest(".terminal-window-controls")) {
-        this.focusInput();
-      }
-    });
+            if (closeBtn) {
+              closeBtn.addEventListener("click", async () => {
+                await showCommonLoader();
+                this.showViewSelector();
+              });
+            }
 
-    this.currentInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        this.executeCommand();
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        this.navigateHistory(-1);
-      } else if (e.key === "ArrowDown") {
-        e.preventDefault();
-        this.navigateHistory(1);
-      } else if (e.key === "Tab") {
-        e.preventDefault();
-        this.autoComplete();
-      }
-    });
+            if (minimizeBtn) {
+              minimizeBtn.addEventListener("click", () => {
+                this.addOutput(
+                  '[INFO] Terminal minimized. Type "exit" to return to selection screen.'
+                );
+              });
+            }
 
-    // Terminal window controls
-    document.getElementById("closeTerminal").addEventListener("click", () => {
-      this.showViewSelector();
-    });
+            if (maximizeBtn) {
+              maximizeBtn.addEventListener("click", () => {
+                this.addOutput("[INFO] Terminal maximized.");
+              });
+            }
+          }
 
-    document
-      .getElementById("minimizeTerminal")
-      .addEventListener("click", () => {
-        this.addOutput(
-          '[INFO] Terminal minimized. Type "exit" to return to selection screen.'
-        );
-      });
+          executeCommand() {
+            if (this.isLoading || !this.currentInput) return;
 
-    document
-      .getElementById("maximizeTerminal")
-      .addEventListener("click", () => {
-        this.addOutput("[INFO] Terminal maximized.");
-      });
-  }
+            const command = this.currentInput.value.trim();
 
-  executeCommand() {
-    if (this.isLoading) return;
+            if (command) {
+              this.commandHistory.push(command);
+              this.historyIndex = this.commandHistory.length;
+              this.addOutput(`sh1vam@portfolio:~$ ${command}`, "command-line");
 
-    const command = this.currentInput.value.trim();
+              if (this.commands[command]) {
+                this.commands[command]();
+              } else if (command === "cd" || command.startsWith("cd ")) {
+                this.changeDirectory(command);
+              } else {
+                this.addOutput(
+                  `bash: ${command}: command not found\nType 'pf -help' for available commands.`,
+                  "error"
+                );
+              }
+            }
 
-    if (command) {
-      this.commandHistory.push(command);
-      this.historyIndex = this.commandHistory.length;
-      this.addOutput(`sh1vam@portfolio:~$ ${command}`, "command-line");
+            this.clearInput();
+            this.createNewPrompt();
+          }
 
-      if (this.commands[command]) {
-        this.commands[command]();
-      } else if (command === "cd" || command.startsWith("cd ")) {
-  this.changeDirectory(command);
-}else {
-        this.addOutput(
-          `bash: ${command}: command not found\nType 'pf -help' for available commands.`,
-          "error"
-        );
-      }
-    }
+          autoComplete() {
+            if (!this.currentInput) return;
+            
+            const input = this.currentInput.value;
+            const commands = Object.keys(this.commands);
+            const matches = commands.filter((cmd) =>
+              cmd.startsWith(input.toLowerCase())
+            );
 
-    this.clearInput();
-    this.createNewPrompt();
-  }
+            if (matches.length === 1) {
+              this.currentInput.value = matches[0];
+            } else if (matches.length > 1) {
+              this.addOutput(matches.join("    "));
+            }
+          }
 
-  autoComplete() {
-    const input = this.currentInput.value;
-    const commands = Object.keys(this.commands);
-    const matches = commands.filter((cmd) =>
-      cmd.startsWith(input.toLowerCase())
-    );
+          navigateHistory(direction) {
+            if (this.commandHistory.length === 0 || !this.currentInput) return;
 
-    if (matches.length === 1) {
-      this.currentInput.value = matches[0];
-    } else if (matches.length > 1) {
-      this.addOutput(matches.join("    "));
-    }
-  }
+            this.historyIndex = Math.max(
+              0,
+              Math.min(this.commandHistory.length, this.historyIndex + direction)
+            );
 
-  navigateHistory(direction) {
-    if (this.commandHistory.length === 0) return;
+            if (
+              this.historyIndex >= 0 &&
+              this.historyIndex < this.commandHistory.length
+            ) {
+              this.currentInput.value = this.commandHistory[this.historyIndex];
+            } else {
+              this.currentInput.value = "";
+            }
+          }
 
-    this.historyIndex = Math.max(
-      0,
-      Math.min(this.commandHistory.length, this.historyIndex + direction)
-    );
-
-    if (
-      this.historyIndex >= 0 &&
-      this.historyIndex < this.commandHistory.length
-    ) {
-      this.currentInput.value = this.commandHistory[this.historyIndex];
-    } else {
-      this.currentInput.value = "";
-    }
-  }
-
-  showHelp() {
-    const helpContent = `Available Commands:
+          showHelp() {
+            const helpContent = `Available Commands:
 
 You can use pf as a shorthand for the portfolio command
 Examples:
 
-
 pf -help     - Show this help menu
-pd -about    - Learn about me
-pd -skills   - View my technical skills
+pf -about    - Learn about me
+pf -skills   - View my technical skills
 pf -projects - See my projects
 pf -contact  - Get my contact information
 pf -gui      - Switch to GUI mode
@@ -203,11 +239,11 @@ ls           - List directory contents
 cd           - Change directory
 clear        - Clear terminal
 exit         - Return to mode selection`;
-    this.addOutput(helpContent);
-  }
+            this.addOutput(helpContent);
+          }
 
-  showAbout() {
-    const aboutAscii = ` 
+          showAbout() {
+            const aboutAscii = ` 
  █████╗ ██████╗  ██████╗ ██╗   ██╗████████╗
 ██╔══██╗██╔══██╗██╔═══██╗██║   ██║╚══██╔══╝
 ███████║██████╔╝██║   ██║██║   ██║   ██║   
@@ -215,7 +251,7 @@ exit         - Return to mode selection`;
 ██║  ██║██████╔╝╚██████╔╝╚██████╔╝   ██║   
 ╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚═════╝    ╚═╝   `;
 
-    const aboutContent = `${aboutAscii}
+            const aboutContent = `${aboutAscii}
 
 sh1vam - Security Specialist & Developer
 
@@ -236,11 +272,11 @@ Stats:
 - 50+ Projects Completed
 - 25+ Satisfied Clients
 - 12+ Professional Certifications`;
-    this.addOutput(aboutContent);
-  }
+            this.addOutput(aboutContent);
+          }
 
-  showSkills() {
-    const skillsAscii = `
+          showSkills() {
+            const skillsAscii = `
 ███████╗██╗  ██╗██╗██╗     ██╗     ███████╗
 ██╔════╝██║ ██╔╝██║██║     ██║     ██╔════╝
 ███████╗█████╔╝ ██║██║     ██║     ███████╗
@@ -248,32 +284,32 @@ Stats:
 ███████║██║  ██╗██║███████╗███████╗███████║
 ╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚══════╝`;
 
-    const skillsContent = `${skillsAscii}
+            const skillsContent = `${skillsAscii}
 
 Technical Skills:
 
 Security:
-█████████████████████ 95% Penetration Testing
-███████████████████   90% Vulnerability Assessment
-████████████████████  92% Network Security
-█████████████████     88% Cryptography
+████████████████████████ 95% Penetration Testing
+██████████████████████   90% Vulnerability Assessment
+████████████████████████ 92% Network Security
+████████████████████     88% Cryptography
 
 Development:
-█████████████████████ 95% Python
-███████████████████   90% JavaScript/Node.js
-████████████████      85% React
-█████████████████     88% SQL/NoSQL Databases
+████████████████████████ 95% Python
+██████████████████████   90% JavaScript/Node.js
+████████████████████     85% React
+████████████████████     88% SQL/NoSQL Databases
 
 Tools & Technologies:
-█████████████████████ 93% Kali Linux
-███████████████████   90% Metasploit
-████████████████      87% Wireshark
-████████████████      85% Docker & Kubernetes`;
-    this.addOutput(skillsContent);
-  }
+██████████████████████  93% Kali Linux
+██████████████████████  90% Metasploit
+████████████████████    87% Wireshark
+████████████████████    85% Docker & Kubernetes`;
+            this.addOutput(skillsContent);
+          }
 
-  showProjects() {
-    const projectsAscii = `
+          showProjects() {
+            const projectsAscii = `
 ██████╗ ██████╗  ██████╗      ██╗███████╗ ██████╗████████╗███████╗
 ██╔══██╗██╔══██╗██╔═══██╗     ██║██╔════╝██╔════╝╚══██╔══╝██╔════╝
 ██████╔╝██████╔╝██║   ██║     ██║█████╗  ██║        ██║   ███████╗
@@ -281,7 +317,7 @@ Tools & Technologies:
 ██║     ██║  ██║╚██████╔╝╚█████╔╝███████╗╚██████╗   ██║   ███████║
 ╚═╝     ╚═╝  ╚═╝ ╚═════╝  �╚════╝ ╚══════╝ ╚═════╝   ╚═╝   ╚══════╝`;
 
-    const projectsContent = `${projectsAscii}
+            const projectsContent = `${projectsAscii}
 
 Recent Projects:
 
@@ -290,27 +326,27 @@ Recent Projects:
    - Advanced firewall configurations
    - IDS/IPS systems implementation
    - Secure remote access solutions
-   ‚Ėą Technologies: Firewalls, VPN, IDS/IPS
+   ➤ Technologies: Firewalls, VPN, IDS/IPS
 
 2. Pen Testing Framework  
    - Comprehensive penetration testing framework
    - Automated vulnerability scanning
    - Reporting and remediation guidance
    - Custom exploit development
-   ‚Ėą Technologies: Python, Security, Automation
+   ➤ Technologies: Python, Security, Automation
 
 3. Tabsye Browser Extension
    - Tab management and productivity enhancement
    - Organize, save, and restore browsing sessions
    - Cross-browser compatibility
    - Secure data storage
-   ‚Ėą Technologies: JavaScript, Chrome API, React
-   ‚Ėą Live Demo: https://tabsye.com`;
-    this.addOutput(projectsContent);
-  }
+   ➤ Technologies: JavaScript, Chrome API, React
+   ➤ Live Demo: https://tabsye.com`;
+            this.addOutput(projectsContent);
+          }
 
-  showContact() {
-    const contactAscii = `
+          showContact() {
+            const contactAscii = `
  ██████╗ ██████╗ ███╗   ██╗████████╗ █████╗  ██████╗████████╗
 ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔══██╗██╔════╝╚══██╔══╝
 ██║     ██║   ██║██╔██╗ ██║   ██║   ███████║██║        ██║   
@@ -318,7 +354,7 @@ Recent Projects:
 ╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║  ██║╚██████╗   ██║   
  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝   ╚═╝   `;
 
-    const contactContent = `${contactAscii}
+            const contactContent = `${contactAscii}
 
 Contact Information:
 
@@ -335,392 +371,347 @@ Social:
 
 Let's work together to secure your digital assets and 
 build innovative technology solutions.`;
-    this.addOutput(contactContent);
-  }
+            this.addOutput(contactContent);
+          }
 
-  listDirectory() {
-    const listDirectory = `Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos`;
-    this.addOutput(listDirectory);
-  }
+          listDirectory() {
+            const listDirectory = `Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos`;
+            this.addOutput(listDirectory);
+          }
 
-  changeDirectory(command) {
-  this.addOutput(
-    `bash: ${command}: Permission denied\nType 'pf -help' for available commands.`,
-    "error"
-  );
-}
+          changeDirectory(command) {
+            this.addOutput(
+              `bash: ${command}: Permission denied\nType 'pf -help' for available commands.`,
+              "error"
+            );
+          }
 
-  switchToGUI() {
-    this.isLoading = true;
-    this.addOutput("[INFO] Switching to GUI mode...");
+          async switchToGUI() {
+            this.isLoading = true;
+            this.addOutput("[INFO] Switching to GUI mode...");
 
-    // Simulate loading before switching
-    setTimeout(() => {
-      document.getElementById("terminalInterface").style.display = "none";
-      document.getElementById("guiInterface").style.display = "block";
-      showGUILoader();
-    }, 1000);
-  }
+            // Remove setTimeout and directly switch after loader
+            await showCommonLoader();
+            document.getElementById("terminalInterface").style.display = "none";
+            document.getElementById("guiInterface").style.display = "block";
+            initGUI();
+            this.isLoading = false;
+          }
 
-  showViewSelector() {
-    this.isLoading = true;
-    this.addOutput("[INFO] Returning to mode selection...");
+          async showViewSelector() {
+            this.isLoading = true;
+            this.addOutput("[INFO] Returning to mode selection...");
 
-    // Simulate loading before switching
-    setTimeout(() => {
-      document.getElementById("terminalInterface").style.display = "none";
-      document.getElementById("viewSelector").style.display = "flex";
-      this.isLoading = false;
-    }, 800);
-  }
+            // Remove setTimeout and directly switch after loader
+            await showCommonLoader();
+            document.getElementById("terminalInterface").style.display = "none";
+            document.getElementById("viewSelector").style.display = "flex";
+            this.isLoading = false;
+          }
 
-  clearTerminal() {
-    const outputs = this.terminalContent.querySelectorAll(".terminal-output");
-    outputs.forEach((output, index) => {
-      if (index > 0) output.remove();
-    });
-  }
+          clearTerminal() {
+            const outputs = this.terminalContent.querySelectorAll(".terminal-output");
+            outputs.forEach((output, index) => {
+              if (index > 0) output.remove();
+            });
+          }
 
-  addOutput(content, type = "") {
-    const output = document.createElement("div");
-    output.className = `terminal-output ${type}`;
-    output.style.whiteSpace = "pre-wrap";
+          addOutput(content, type = "") {
+            const output = document.createElement("div");
+            output.className = `terminal-output ${type}`;
+            output.style.whiteSpace = "pre-wrap";
 
-    // Check if content contains ASCII art
-    if (
-      content.includes("‚Ėą") ||
-      content.includes("‚ēĎ") ||
-      content.includes("‚ēó") ||
-      content.includes("‚ēĚ") ||
-      content.includes("‚ēĒ") ||
-      content.includes("‚ēö")
-    ) {
-      output.innerHTML = `<div class="ascii-art">${content}</div>`;
-    } else {
-      output.textContent = content;
-    }
+            if (
+              content.includes("██") ||
+              content.includes("➤") ||
+              content.includes("████")
+            ) {
+              output.innerHTML = `<div class="ascii-art">${content}</div>`;
+            } else {
+              output.textContent = content;
+            }
 
-    this.terminalContent.insertBefore(output, this.currentInputContainer);
-    this.scrollToBottom();
-  }
+            this.terminalContent.insertBefore(output, this.currentInputContainer);
+            this.scrollToBottom();
+          }
 
-  clearInput() {
-    this.currentInput.value = "";
-  }
+          clearInput() {
+            if (this.currentInput) {
+              this.currentInput.value = "";
+            }
+          }
 
-  createNewPrompt() {
-    const newInputContainer = document.createElement("div");
-    newInputContainer.className = "terminal-input-container";
-    newInputContainer.id = "currentInput";
-    newInputContainer.innerHTML = `
-                    <span class="terminal-prompt">sh1vam@portfolio:~$</span>
-                    <input type="text" class="terminal-input" autocomplete="off" spellcheck="false">
-                    <span class="terminal-cursor"></span>
-                `;
+          createNewPrompt() {
+            const newInputContainer = document.createElement("div");
+            newInputContainer.className = "terminal-input-container";
+            newInputContainer.id = "currentInput";
+            newInputContainer.innerHTML = `
+              <span class="terminal-prompt">sh1vam@portfolio:~$</span>
+              <input type="text" class="terminal-input" autocomplete="off" spellcheck="false">
+              <span class="terminal-cursor"></span>
+            `;
 
-    this.terminalContent.replaceChild(
-      newInputContainer,
-      this.currentInputContainer
-    );
-    this.currentInputContainer = newInputContainer;
-    this.currentInput = newInputContainer.querySelector(".terminal-input");
+            this.terminalContent.replaceChild(
+              newInputContainer,
+              this.currentInputContainer
+            );
+            this.currentInputContainer = newInputContainer;
+            this.currentInput = newInputContainer.querySelector(".terminal-input");
 
-    // Reattach event listeners
-    this.currentInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        this.executeCommand();
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        this.navigateHistory(-1);
-      } else if (e.key === "ArrowDown") {
-        e.preventDefault();
-        this.navigateHistory(1);
-      } else if (e.key === "Tab") {
-        e.preventDefault();
-        this.autoComplete();
-      }
-    });
+            // Reattach event listeners
+            if (this.currentInput) {
+              this.currentInput.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  this.executeCommand();
+                } else if (e.key === "ArrowUp") {
+                  e.preventDefault();
+                  this.navigateHistory(-1);
+                } else if (e.key === "ArrowDown") {
+                  e.preventDefault();
+                  this.navigateHistory(1);
+                } else if (e.key === "Tab") {
+                  e.preventDefault();
+                  this.autoComplete();
+                }
+              });
+            }
 
-    this.focusInput();
-    this.scrollToBottom();
-  }
+            this.focusInput();
+            this.scrollToBottom();
+          }
 
-  focusInput() {
-    if (this.currentInput) {
-      this.currentInput.focus();
-    }
-  }
+          focusInput() {
+            if (this.currentInput) {
+              this.currentInput.focus();
+            }
+          }
 
-  scrollToBottom() {
-    this.terminalContent.scrollTop = this.terminalContent.scrollHeight;
-  }
-}
-
-// GUI Loader function
-function showGUILoader() {
-  const loader = document.getElementById("guiLoader");
-  const progress = document.getElementById("guiProgress");
-
-  // Reset and show loader
-  loader.style.display = "flex";
-  loader.style.opacity = "1";
-  progress.style.width = "0%";
-
-  // Simulate loading
-  setTimeout(() => {
-    progress.style.width = "30%";
-  }, 500);
-
-  setTimeout(() => {
-    progress.style.width = "60%";
-  }, 1500);
-
-  setTimeout(() => {
-    progress.style.width = "90%";
-  }, 2500);
-
-  setTimeout(() => {
-    progress.style.width = "100%";
-  }, 3000);
-
-  setTimeout(() => {
-    loader.style.opacity = "0";
-    setTimeout(() => {
-      loader.style.display = "none";
-      // Initialize GUI after loader is gone
-      initGUI();
-    }, 600);
-  }, 3500);
-}
-
-// GUI initialization
-function initGUI() {
-  // Mobile menu toggle
-  const hamburger = document.querySelector(".hamburger");
-  const navLinks = document.querySelector(".nav-links");
-
-  if (hamburger && navLinks) {
-    hamburger.addEventListener("click", () => {
-      navLinks.classList.toggle("active");
-      hamburger.innerHTML = navLinks.classList.contains("active")
-        ? '<i class="fas fa-times"></i>'
-        : '<i class="fas fa-bars"></i>';
-    });
-  }
-
-  // Close mobile menu when clicking on a link
-  document.querySelectorAll(".nav-links a").forEach((link) => {
-    link.addEventListener("click", () => {
-      if (navLinks) {
-        navLinks.classList.remove("active");
-        if (hamburger) {
-          hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-        }
-      }
-    });
-  });
-
-  // Switch to terminal from GUI
-  document.getElementById("switchToTerminal").addEventListener("click", (e) => {
-    e.preventDefault();
-    document.getElementById("guiInterface").style.display = "none";
-    document.getElementById("terminalInterface").style.display = "flex";
-    if (!window.terminal) {
-      window.terminal = new TerminalPortfolio();
-    }
-    window.terminal.focusInput();
-  });
-
-  // Smooth scrolling for navigation links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      const targetId = this.getAttribute("href");
-      if (targetId === "#") return;
-
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 80,
-          behavior: "smooth",
-        });
-
-        // Close mobile menu if open
-        if (navLinks && navLinks.classList.contains("active")) {
-          navLinks.classList.remove("active");
-          if (hamburger) {
-            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+          scrollToBottom() {
+            this.terminalContent.scrollTop = this.terminalContent.scrollHeight;
           }
         }
-      }
-    });
-  });
 
-  // Animate skill bars on scroll
-  function animateSkillBars() {
-    const skillLevels = document.querySelectorAll(".skill-level");
-    skillLevels.forEach((skill) => {
-      const level = skill.getAttribute("data-level");
-      skill.style.width = level + "%";
-    });
-  }
+        // GUI initialization
+        function initGUI() {
+          // Mobile menu toggle
+          const hamburger = document.querySelector(".hamburger");
+          const navLinks = document.querySelector(".nav-links");
 
-  // Typing animation
-  function initTypingAnimation() {
-    const textElement = document.getElementById("typed-text");
-    if (!textElement) return;
+          if (hamburger && navLinks) {
+            hamburger.addEventListener("click", () => {
+              navLinks.classList.toggle("active");
+              hamburger.innerHTML = navLinks.classList.contains("active")
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
+            });
+          }
 
-    const texts = [
-      "Security Specialist",
-      "Penetration Tester",
-      "Full-Stack Developer",
-      "Cybersecurity Expert",
-    ];
-    let textIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingSpeed = 100;
+          // Close mobile menu when clicking on a link
+          document.querySelectorAll(".nav-links a").forEach((link) => {
+            link.addEventListener("click", () => {
+              if (navLinks) {
+                navLinks.classList.remove("active");
+                if (hamburger) {
+                  hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+              }
+            });
+          });
 
-    function type() {
-      const currentText = texts[textIndex];
+          // Switch to terminal from GUI
+          const switchToTerminalBtn = document.getElementById("switchToTerminal");
+          if (switchToTerminalBtn) {
+            switchToTerminalBtn.addEventListener("click", async (e) => {
+              e.preventDefault();
+              
+              await showCommonLoader();
+              
+              document.getElementById("guiInterface").style.display = "none";
+              document.getElementById("terminalInterface").style.display = "flex";
+              
+              if (!window.terminal) {
+                window.terminal = new TerminalPortfolio();
+              }
+              window.terminal.focusInput();
+            });
+          }
 
-      if (isDeleting) {
-        // Remove characters
-        textElement.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-        typingSpeed = 50;
-      } else {
-        // Add characters
-        textElement.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-        typingSpeed = 100;
-      }
+          // Smooth scrolling for navigation links
+          document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", function (e) {
+              e.preventDefault();
+              const targetId = this.getAttribute("href");
+              if (targetId === "#") return;
 
-      // Check if current text is complete
-      if (!isDeleting && charIndex === currentText.length) {
-        isDeleting = true;
-        typingSpeed = 1000; // Pause at end
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % texts.length;
-        typingSpeed = 500; // Pause before starting next
-      }
+              const targetElement = document.querySelector(targetId);
+              if (targetElement) {
+                window.scrollTo({
+                  top: targetElement.offsetTop - 80,
+                  behavior: "smooth",
+                });
 
-      setTimeout(type, typingSpeed);
-    }
+                if (navLinks && navLinks.classList.contains("active")) {
+                  navLinks.classList.remove("active");
+                  if (hamburger) {
+                    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                  }
+                }
+              }
+            });
+          });
 
-    // Start typing animation
-    setTimeout(type, 1000);
-  }
+          // Animate skill bars
+          function animateSkillBars() {
+            const skillLevels = document.querySelectorAll(".skill-level");
+            skillLevels.forEach((skill) => {
+              const level = skill.getAttribute("data-level");
+              skill.style.width = level + "%";
+            });
+          }
 
-  // Initialize animations
-  function initAnimations() {
-    // Initialize AOS
-    if (typeof AOS !== "undefined") {
-      AOS.init({
-        duration: 1000,
-        once: true,
-        offset: 100,
-      });
-    }
+          // Typing animation
+          function initTypingAnimation() {
+            const textElement = document.getElementById("typed-text");
+            if (!textElement) return;
 
-    // Animate skill bars
-    animateSkillBars();
+            const texts = [
+              "Security Specialist",
+              "Penetration Tester",
+              "Full-Stack Developer",
+              "Cybersecurity Expert",
+            ];
+            let textIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
 
-    // Start typing animation
-    initTypingAnimation();
+            function type() {
+              const currentText = texts[textIndex];
 
-    // Add scroll event listener for nav highlighting
-    window.addEventListener("scroll", highlightNavSection);
+              if (isDeleting) {
+                textElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+                typingSpeed = 50;
+              } else {
+                textElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+                typingSpeed = 100;
+              }
 
-    // Initial highlight call
-    highlightNavSection();
-  }
+              if (!isDeleting && charIndex === currentText.length) {
+                isDeleting = true;
+                typingSpeed = 1000;
+              } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typingSpeed = 500;
+              }
 
-  // Highlight current section in navigation
-  function highlightNavSection() {
-    const sections = document.querySelectorAll("section");
-    const navLinks = document.querySelectorAll(".nav-links a");
+              setTimeout(type, typingSpeed);
+            }
 
-    let currentSection = "";
-    const scrollPosition = window.pageYOffset + 100;
+            setTimeout(type, 1000);
+          }
 
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
+          // Initialize animations
+          function initAnimations() {
+            if (typeof AOS !== "undefined") {
+              AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100,
+              });
+            }
 
-      if (
-        scrollPosition >= sectionTop &&
-        scrollPosition < sectionTop + sectionHeight
-      ) {
-        currentSection = section.getAttribute("id");
-      }
-    });
+            animateSkillBars();
+            initTypingAnimation();
+            window.addEventListener("scroll", highlightNavSection);
+            highlightNavSection();
+          }
 
-    navLinks.forEach((link) => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === `#${currentSection}`) {
-        link.classList.add("active");
-      }
-    });
-  }
+          // Highlight current section in navigation
+          function highlightNavSection() {
+            const sections = document.querySelectorAll("section");
+            const navLinks = document.querySelectorAll(".nav-links a");
 
-  // Form submission
-  const contactForm = document.getElementById("contactForm");
-  if (contactForm) {
-    contactForm.addEventListener("submit", function (e) {
-      e.preventDefault();
+            let currentSection = "";
+            const scrollPosition = window.pageYOffset + 100;
 
-      // Simulate form submission
-      const submitBtn = this.querySelector(".submit-btn");
-      const originalText = submitBtn.innerHTML;
+            sections.forEach((section) => {
+              const sectionTop = section.offsetTop;
+              const sectionHeight = section.clientHeight;
 
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-      submitBtn.disabled = true;
+              if (
+                scrollPosition >= sectionTop &&
+                scrollPosition < sectionTop + sectionHeight
+              ) {
+                currentSection = section.getAttribute("id");
+              }
+            });
 
-      setTimeout(() => {
-        alert("Message sent successfully! I'll get back to you soon.");
-        contactForm.reset();
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-      }, 2000);
-    });
-  }
+            navLinks.forEach((link) => {
+              link.classList.remove("active");
+              if (link.getAttribute("href") === `#${currentSection}`) {
+                link.classList.add("active");
+              }
+            });
+          }
 
-  // Initialize animations
-  initAnimations();
-}
+          // Form submission
+          const contactForm = document.getElementById("contactForm");
+          if (contactForm) {
+            contactForm.addEventListener("submit", function (e) {
+              e.preventDefault();
 
-// Initialize application
-document.addEventListener("DOMContentLoaded", () => {
-  initMatrix();
+              const submitBtn = this.querySelector(".submit-btn");
+              const originalText = submitBtn.innerHTML;
 
-  // Add click event listeners to view options
-  document
-    .getElementById("terminalOption")
-    .addEventListener("click", function () {
-      document.getElementById("viewSelector").style.display = "none";
-      document.getElementById("terminalInterface").style.display = "flex";
-      window.terminal = new TerminalPortfolio();
-    });
+              submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+              submitBtn.disabled = true;
 
-  document.getElementById("guiOption").addEventListener("click", function () {
-    document.getElementById("viewSelector").style.display = "none";
-    document.getElementById("guiInterface").style.display = "block";
-    showGUILoader();
-  });
-});
+              setTimeout(() => {
+                alert("Message sent successfully! I'll get back to you soon.");
+                contactForm.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+              }, 2000);
+            });
+          }
 
-// Fallback in case DOMContentLoaded doesn't fire correctly
-window.addEventListener("load", function () {
-  const loader = document.querySelector(".loader");
-  if (loader && loader.style.display !== "none") {
-    setTimeout(function () {
-      loader.style.opacity = "0";
-      setTimeout(function () {
-        loader.style.display = "none";
-      }, 600);
-    }, 1000);
-  }
-});
+          initAnimations();
+        }
+
+        // Initialize application
+        document.addEventListener("DOMContentLoaded", () => {
+          initMatrix();
+
+          // View selection event listeners
+          const terminalOption = document.getElementById("terminalOption");
+          const guiOption = document.getElementById("guiOption");
+
+          if (terminalOption) {
+            terminalOption.addEventListener("click", async function () {
+              document.getElementById("viewSelector").style.display = "none";
+              
+              await showCommonLoader();
+              
+              document.getElementById("terminalInterface").style.display = "flex";
+              if (!window.terminal) {
+                window.terminal = new TerminalPortfolio();
+              }
+              window.terminal.focusInput();
+            });
+          }
+
+          if (guiOption) {
+            guiOption.addEventListener("click", async function () {
+              document.getElementById("viewSelector").style.display = "none";
+              
+              await showCommonLoader();
+              
+              document.getElementById("guiInterface").style.display = "block";
+              initGUI();
+            });
+          }
+        });

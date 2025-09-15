@@ -26,11 +26,33 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
     <!-- Matrix Background -->
     <canvas class="matrix-bg" id="matrixCanvas"></canvas>
+
+    <!-- Common Loader -->
+    <div class="common-loader" id="commonLoader">
+        <div class="common-loader-content">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-button" style="background-color: #FF5F56;"></div>
+                    <div class="terminal-button" style="background-color: #FFBD2E;"></div>
+                    <div class="terminal-button" style="background-color: #27C93F;"></div>
+                    <div class="terminal-title">sh1vam@portfolio:~</div>
+                </div>
+                <div class="terminal-body">
+                    <p class="status-line">> Initializing system...</p>
+                    <p class="status-line">> Loading portfolio components...</p>
+                    <p class="status-line">> Establishing secure connection...</p>
+                    <p class="status-line">> Welcome to the portfolio of <span style="color: var(--primary);">sh1vam</span></p>
+                    <div class="progress-bar">
+                        <div class="progress" id="commonLoaderProgress"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- View Selection Screen -->
     <div class="view-selector" id="viewSelector">
@@ -63,7 +85,7 @@
     </div>
 
     <!-- Terminal Interface -->
-    <div class="terminal-interface terminal-mode" id="terminalInterface">
+    <div class="terminal-interface terminal-mode" id="terminalInterface">        
         <div class="terminal-top-bar">
             <div class="terminal-window-controls">
                 <div class="terminal-window-button" style="background-color: #FF5F56;" id="closeTerminal"></div>
@@ -75,16 +97,17 @@
         </div>
         <div class="terminal-content" id="terminalContent">
             <div class="terminal-output">
-                <div class="ascii-art">           __   ___                    
-     _____/ /_ /  /   ______ _____ ___ 
-    / ___/ __ \/ / | / / __ `/ __ `__ \
-   (__  ) / / / /| |/ / /_/ / / / / / /
-  /____/_/ /_/_/ |___/\__,_/_/ /_/ /_/ 
-
-  ████████████████████████████████████
-  ██    TERMINAL-BASED PORTFOLIO    ██
-  ██        sh1vam@portfolio        ██
-  ████████████████████████████████████</div>
+                <div class="ascii-art">
+          _     _                      
+      ___| |__ / |_   ____ _ _ __ ___  
+     / __| '_ \| \ \ / / _` | '_ ` _ \ 
+     \__ \ | | | |\ V / (_| | | | | | |
+     |___/_| |_|_| \_/ \__,_|_| |_| |_|
+                                        
+    ████████████████████████████████████
+    ██  SECURITY SPECIALIST TERMINAL  ██
+    ██         sh1vam@portfolio       ██  
+    ████████████████████████████████████</div>
                 <div style="color: var(--success);">[INFO] Terminal initialized successfully</div>
                 <div>System: Kali Linux 2023.4 (Terminal Portfolio v2.1)</div>
                 <div>Type 'pf -help' for available commands</div>
@@ -100,29 +123,6 @@
 
     <!-- GUI Interface -->
     <div class="gui-interface gui-mode" id="guiInterface">
-        <!-- Loader -->
-        <div class="loader" id="guiLoader">
-            <div class="loader-content">
-                <div class="terminal">
-                    <div class="terminal-header">
-                        <div class="terminal-button" style="background-color: #FF5F56;"></div>
-                        <div class="terminal-button" style="background-color: #FFBD2E;"></div>
-                        <div class="terminal-button" style="background-color: #27C93F;"></div>
-                        <div class="terminal-title">sh1vam@portfolio:~</div>
-                    </div>
-                    <div class="terminal-body">
-                        <p class="status-line">> Initializing system...</p>
-                        <p class="status-line">> Loading portfolio components...</p>
-                        <p class="status-line">> Establishing secure connection...</p>
-                        <p class="status-line">> Welcome to the terminal portfolio of <span style="color: var(--primary);">sh1vam</span></p>
-                        <div class="progress-bar">
-                            <div class="progress" id="guiProgress"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Navigation -->
         <header>
             <div class="container">
@@ -195,10 +195,6 @@
             <div class="scroll-indicator">
                 <div class="mouse">
                     <div class="wheel"></div>
-                </div>
-                <div class="arrows">
-                    <span></span>
-                    <span></span>
                 </div>
             </div>
         </section>
@@ -557,4 +553,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="script.js"></script>
 </body>
-</html> 
+</html>

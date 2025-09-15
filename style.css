@@ -38,6 +38,101 @@
             overflow-x: hidden;
         }
 
+        /* Common Loader */
+        .common-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .common-loader.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .common-loader-content {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        .common-loader .terminal {
+            background: var(--background-alt);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .common-loader .terminal-header {
+            background: var(--secondary);
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .common-loader .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .common-loader .terminal-title {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            margin-left: 10px;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        .common-loader .terminal-body {
+            padding: 20px;
+            font-family: 'Source Code Pro', monospace;
+        }
+
+        .common-loader .status-line {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .common-loader .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .common-loader .progress {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* Matrix Background for selector */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.08;
+            z-index: 1;
+        }
+
         /* View Selection Screen */
         .view-selector {
             position: fixed;
@@ -46,21 +141,20 @@
             width: 100%;
             height: 100%;
             background: var(--background);
-            z-index: 10000;
+            z-index: 1000;
             display: flex;
             justify-content: center;
             align-items: center;
             transition: opacity 0.6s ease;
         }
 
-         .selector-content {
+        .selector-content {
             text-align: center;
             max-width: 800px;
             padding: 2rem;
             position: relative;
-            z-index: 10002; /* Higher than matrix background */
+            z-index: 10;
         }
-
 
         .selector-title {
             font-family: 'Source Code Pro', monospace;
@@ -95,7 +189,7 @@
             text-decoration: none;
             color: inherit;
             position: relative;
-            z-index: 10003; /* Ensure options are above everything */
+            z-index: 10;
         }
 
         .view-option:hover {
@@ -124,18 +218,6 @@
             line-height: 1.4;
         }
 
-        /* Matrix Background for selector */
-        .matrix-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.08;
-            z-index: 10001; /* Higher than view-selector background but lower than content */
-        }
-        
         /* ===== TERMINAL STYLES ===== */
         .terminal-mode {
             font-family: 'Source Code Pro', monospace;
@@ -197,7 +279,7 @@
             display: flex;
             flex-direction: column;
             background: var(--background);
-            font-size: 1.1rem; /* Increased font size for better readability */
+            font-size: 1.1rem;
         }
 
         .terminal-input-container {
@@ -213,7 +295,7 @@
             white-space: nowrap;
             text-shadow: var(--glow);
             font-weight: 500;
-            font-size: 1.1rem; /* Increased font size */
+            font-size: 1.1rem;
         }
 
         .terminal-input {
@@ -221,7 +303,7 @@
             border: none;
             color: var(--text-primary);
             font-family: 'Source Code Pro', monospace;
-            font-size: 1.1rem; /* Increased font size */
+            font-size: 1.1rem;
             width: 100%;
             outline: none;
             caret-color: var(--primary);
@@ -230,7 +312,7 @@
         .terminal-cursor {
             background: var(--primary);
             width: 8px;
-            height: 18px; /* Slightly taller cursor */
+            height: 18px;
             display: inline-block;
             animation: blink 1s infinite;
             margin-left: 2px;
@@ -239,14 +321,13 @@
         .terminal-output {
             margin-bottom: 12px;
             line-height: 1.4;
-            animation: fadeIn 0.4s ease-in;
             white-space: pre-wrap;
-            font-size: 1.1rem; /* Increased font size */
+            font-size: 0.9rem;
         }
 
         .ascii-art {
             color: var(--primary);
-            font-size: 1rem; /* Increased ASCII art font size */
+            font-size: 1rem;
             line-height: 1.3;
             margin: 15px 0;
             text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
@@ -264,22 +345,7 @@
 
         .error {
             color: var(--error);
-            font-size: 1.1rem; /* Increased font size */
-        }
-
-        .terminal-section {
-            margin: 15px 0;
-            padding-left: 10px;
-            border-left: 2px solid var(--primary);
-        }
-
-        .terminal-list {
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-
-        .terminal-list li {
-            margin-bottom: 8px;
+            font-size: 1.1rem;
         }
 
         /* ===== GUI STYLES ===== */
@@ -289,81 +355,6 @@
 
         .gui-interface {
             display: none;
-        }
-
-        /* Loader */
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--background);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.6s ease;
-        }
-
-        .loader-content {
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .terminal {
-            background: var(--background-alt);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .terminal-header {
-            background: var(--secondary);
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
-        }
-
-        .terminal-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-
-        .terminal-title {
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            margin-left: 10px;
-        }
-
-        .terminal-body {
-            padding: 20px;
-            font-family: 'Source Code Pro', monospace;
-        }
-
-        .status-line {
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: var(--secondary);
-            border-radius: 2px;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-
-        .progress {
-            height: 100%;
-            background: var(--primary);
-            width: 0%;
-            transition: width 0.5s ease;
         }
 
         /* Container */
@@ -469,6 +460,12 @@
                 radial-gradient(circle at 20% 30%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 70%, rgba(255, 7, 58, 0.1) 0%, transparent 50%);
             z-index: 1;
+            animation: pulse 10s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
         }
 
         .grid-overlay {
@@ -690,31 +687,6 @@
             animation: scroll 2s infinite;
         }
 
-        .arrows {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-            display: none; /* Hidden as per original code */
-        }
-
-        .arrows span {
-            width: 8px;
-            height: 8px;
-            border-right: 2px solid var(--primary);
-            border-bottom: 2px solid var(--primary);
-            transform: rotate(45deg);
-            margin: 0 4px;
-            animation: arrow-down 2s infinite;
-        }
-
-        .arrows span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .arrows span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
         /* About Section */
         #about {
             padding: var(--section-spacing) 0;
@@ -852,7 +824,7 @@
 
         .skill-info h4 {
             color: var(--text-primary);
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         .skill-info span {
@@ -919,6 +891,7 @@
             display: flex;
             flex-direction: column;
             height: calc(100% - 200px);
+            justify-content: space-between;
         }
 
         .project-title {
@@ -1132,6 +1105,7 @@
             text-decoration: none;
             transition: var(--transition);
             cursor: pointer;
+            font-size: 0.9rem;
         }
 
         .footer-links a:hover {
@@ -1163,12 +1137,6 @@
             0% { opacity: 0; transform: translateX(-50%) translateY(0); }
             50% { opacity: 1; }
             100% { opacity: 0; transform: translateX(-50%) translateY(16px); }
-        }
-
-        @keyframes arrow-down {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
         }
 
         /* Responsive */
