@@ -487,6 +487,8 @@
             z-index: 2;
             text-align: center;
             width: 100%;
+            padding-top: 100px;
+            padding-bottom: 100px;
         }
 
         .hero-profile {
@@ -1064,7 +1066,7 @@
         /* Footer */
         footer {
             background: var(--background);
-            padding: 3rem 0;
+            padding: 1rem 0;
             text-align: center;
             border-top: 1px solid rgba(0, 255, 65, 0.1);
         }
@@ -1073,13 +1075,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2rem;
         }
 
         .social-links {
             display: flex;
             gap: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+
         }
 
         .social-links a {
@@ -1115,6 +1118,8 @@
         .copyright {
             color: var(--text-secondary);
             font-size: 0.9rem;
+            border-top: 1px solid rgba(0, 255, 65, 0.1);
+            padding-top: 1rem;
         }
 
         /* Animations */
