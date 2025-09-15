@@ -251,27 +251,22 @@ exit         - Return to mode selection`;
 ██║  ██║██████╔╝╚██████╔╝╚██████╔╝   ██║   
 ╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚═════╝    ╚═╝   `;
 
-            const aboutContent = `${aboutAscii}
+const aboutContent = `${aboutAscii}
 
-sh1vam - Security Specialist & Developer
+sh1vam - Full-Stack Developer | Web Security & Penetration Tester
 
-8+ years experience in cybersecurity, penetration testing, 
-and secure application development.
+I'm building secure applications using my full stack development, web security, and penetration testing skills.
 
-My mission is to build secure digital environments and 
-protect organizations from evolving cyber threats.
+I am a Full Stack Developer and Ethical Hacker with specialized expertise in Web Security & Penetration Testing. My unique combination of development skills and security knowledge allows me to build robust web applications with security integrated at every layer of the technology stack.
 
-Specializations:
-- Penetration Testing
-- Vulnerability Assessment  
-- Network Security
-- Secure Application Development
-- Cloud Infrastructure Security
+With experience in both creating software and ethically breaking it, I implement security best practices during development while proactively identifying vulnerabilities through comprehensive penetration testing. This dual perspective enables me to deliver solutions that are not just functional, but fundamentally secure by design.
+
+My technical approach combines modern web development frameworks with offensive security methodologies to create applications that withstand real-world threats while maintaining optimal performance and user experience.
 
 Stats:
-- 50+ Projects Completed
-- 25+ Satisfied Clients
-- 12+ Professional Certifications`;
+- 03+ Projects Completed
+- 01+ Satisfied Clients
+- 02+ Professional Certifications`;
             this.addOutput(aboutContent);
           }
 
@@ -289,22 +284,22 @@ Stats:
 Technical Skills:
 
 Security:
-████████████████████████ 95% Penetration Testing
-██████████████████████   90% Vulnerability Assessment
-████████████████████████ 92% Network Security
-████████████████████     88% Cryptography
+████████████████          63% VAPT
+██████████████            54% Web Security
+█████████                 36% Network Sec
+█                         02% Cryptography
 
 Development:
-████████████████████████ 95% Python
-██████████████████████   90% JavaScript/Node.js
-████████████████████     85% React
-████████████████████     88% SQL/NoSQL Databases
+██████████████████        69% Python
+████████████████          63% JS/Node.js
+███████████████           59% React
+██████████                39% Databases
 
 Tools & Technologies:
-██████████████████████  93% Kali Linux
-██████████████████████  90% Metasploit
-████████████████████    87% Wireshark
-████████████████████    85% Docker & Kubernetes`;
+████████████████████████  93% Kali Linux
+██████████████████████    86% Burp Suite
+██████████████            54% Metasploit
+██████████████            53% Wireshark`;
             this.addOutput(skillsContent);
           }
 
@@ -321,27 +316,29 @@ Tools & Technologies:
 
 Recent Projects:
 
-1. Secure Network Architecture
-   - Designed secure network infrastructure
-   - Advanced firewall configurations
-   - IDS/IPS systems implementation
-   - Secure remote access solutions
-   ➤ Technologies: Firewalls, VPN, IDS/IPS
+1. GitMan - GitHub Dorking URL Generator
+- Identify potentially sensitive or exposed data within public GitHub repositories
+- Designed for security researchers, penetration testers, and bug bounty hunters
+- CLI-based tool with flexible GitHub dorking techniques
+- Supports Python-based automation for security research
+➤ Technologies: Python, GitHub Dorking, CLI, Security Research
+➤ GitHub Link: https://github.com/sh1vam-03/gitman
 
-2. Pen Testing Framework  
-   - Comprehensive penetration testing framework
-   - Automated vulnerability scanning
-   - Reporting and remediation guidance
-   - Custom exploit development
-   ➤ Technologies: Python, Security, Automation
+2. WA-Spam — WhatsApp, Snapchat, etc Spammer  
+- Send user-typed or auto-generated messages on WhatsApp, Snapchat, and more
+- Random message generation and counting features
+- Flexible spamming options for educational purposes
+- Terminal-based Python tool for automation
+➤ Technologies: Python, CLI, Automation, Terminal Tool
+➤ GitHub Link: https://github.com/sh1vam-03/WhatsApp-Spammer
 
-3. Tabsye Browser Extension
-   - Tab management and productivity enhancement
-   - Organize, save, and restore browsing sessions
-   - Cross-browser compatibility
-   - Secure data storage
-   ➤ Technologies: JavaScript, Chrome API, React
-   ➤ Live Demo: https://tabsye.com`;
+3. Tabsye — QR-Based Ordering System
+- Modern restaurant ordering platform using QR codes
+- Live menu updates, order tracking, and inventory management
+- Seamless table orders and optimized restaurant service
+- Web-based interface with Next.js and Tailwind CSS
+➤ Technologies: Next.js, Tailwind CSS, PostgreSQL, Web Security
+➤ Live Demo: https://tabsye.com`;
             this.addOutput(projectsContent);
           }
 
@@ -358,16 +355,16 @@ Recent Projects:
 
 Contact Information:
 
-Email: sh1vam@example.com
-Phone: +1 (234) 567-890
-Location: San Francisco, CA
+Email:        l1acker03@gmail.com
+Phone:        +91 75177514XX
+Address:      192.168.119.12
 Availability: Currently available for freelance projects
 
 Social:
-- GitHub: github.com/sh1vam
-- LinkedIn: linkedin.com/in/sh1vam
-- Twitter: twitter.com/sh1vam
-- Instagram: instagram.com/sh1vam
+- GitHub:     github.com/sh1vam-03
+- LinkedIn:   linkedin.com/in/sh1vam~03
+- Twitter:    x.com/sh1vam_03
+- Instagram:  instagram.com/sh1vam_03
 
 Let's work together to secure your digital assets and 
 build innovative technology solutions.`;
@@ -576,10 +573,8 @@ build innovative technology solutions.`;
             if (!textElement) return;
 
             const texts = [
-              "Security Specialist",
-              "Penetration Tester",
               "Full-Stack Developer",
-              "Cybersecurity Expert",
+              "Web Security & Penetration Tester",
             ];
             let textIndex = 0;
             let charIndex = 0;
@@ -658,26 +653,43 @@ build innovative technology solutions.`;
             });
           }
 
-          // Form submission
-          const contactForm = document.getElementById("contactForm");
-          if (contactForm) {
-            contactForm.addEventListener("submit", function (e) {
-              e.preventDefault();
+// Initialize EmailJS
+(function () {
+  emailjs.init("vKxbPXfw618L4ocmy"); // ✅ Replace with your EmailJS public key
+})();
 
-              const submitBtn = this.querySelector(".submit-btn");
-              const originalText = submitBtn.innerHTML;
+const contactForm = document.getElementById("contactForm");
 
-              submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-              submitBtn.disabled = true;
+if (contactForm) {
+  contactForm.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-              setTimeout(() => {
-                alert("Message sent successfully! I'll get back to you soon.");
-                contactForm.reset();
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-              }, 2000);
-            });
-          }
+    const submitBtn = this.querySelector(".submit-btn");
+    const originalText = submitBtn.innerHTML;
+
+    // Show loading state
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    submitBtn.disabled = true;
+
+    // 1️⃣ Send notification email (to you)
+    emailjs.sendForm("service_va4luii", "template_6c967hv", this)
+      .then(() => {
+        // 2️⃣ Send auto-reply email (to user)
+        return emailjs.sendForm("service_va4luii", "template_08nbffa", this);
+      })
+      .then(() => {
+        alert("✅ Message sent successfully! An auto-reply has been sent to your inbox.");
+        contactForm.reset();
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      })
+      .catch((error) => {
+        alert("❌ Failed to send message. Please try again later.");
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      });
+  });
+}
 
           initAnimations();
         }

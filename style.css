@@ -331,12 +331,13 @@
             line-height: 1.3;
             margin: 15px 0;
             text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
-            white-space: pre;
-            overflow-x: auto;
+            white-space: pre-wrap;   /* ✅ allow wrapping instead of scrolling */
+            overflow-x: hidden;      /* ✅ remove horizontal scrollbar */
+            word-break: break-word;  /* ✅ break long text if needed */
             font-weight: 400;
             font-family: 'Source Code Pro', monospace;
-            display: flex;
-            justify-content: center;
+            display: block;          /* ✅ flex not needed here */
+
         }
 
         .command-line {
@@ -380,8 +381,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            padding: 10px 0;
             position: relative;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.1);
         }
 
         .logo {
@@ -762,6 +764,10 @@
 
         .about-image {
             position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
         }
 
         .about-image-wrapper {
@@ -791,6 +797,20 @@
         .tech-stack i {
             font-size: 2.5rem;
             color: var(--primary);
+        }
+
+        /* tech-stack-icons */
+        .tech-stack-icons {
+            grid-template-columns: 1fr;
+            background: rgba(0, 255, 65, 0.1);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(0, 255, 65, 0.2);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1rem;
         }
 
         /* Skills Section */
