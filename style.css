@@ -286,7 +286,7 @@
             display: flex;
             align-items: center;
             margin: 8px 0;
-            animation: fadeIn 0.3s ease-in;
+            /* animation: fadeIn 0.3s ease-in; */
         }
 
         .terminal-prompt {
@@ -322,7 +322,6 @@
             margin-bottom: 12px;
             line-height: 1.4;
             white-space: pre-wrap;
-            font-size: 0.9rem;
         }
 
         .ascii-art {
