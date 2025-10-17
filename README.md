@@ -64,10 +64,6 @@ portfolio/
 ├── index.html          # Main HTML file
 ├── style.css           # All CSS styles
 ├── script.js           # All JavaScript functionality
-└── images/             # Project images
-    ├── GitMan.png
-    ├── WA-Spam.png
-    └── Tabsye.png
 ```
 
 ## Code Explanation
